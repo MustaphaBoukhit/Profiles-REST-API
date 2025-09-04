@@ -4,6 +4,9 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import filters
+from rest_framework.authtoken.views import ObtainAuthToken
+#from rest_framework.settings import api_settings
+from rest_framework.settings import api_settings
 
 from rest_framework import generics
 
@@ -103,3 +106,8 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     # , here is intentionally added to allow python interpret it's intended to be a tuple and nmot a single item
     filter_backends = (filters.SearchFilter,) 
     search_fields = ('name', 'email',)
+
+
+class UserLoginApiView(ObtainAuthToken):
+    """Handle creating user authentication tokens"""
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
