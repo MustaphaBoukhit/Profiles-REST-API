@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
+from rest_framework import filters
 
 from rest_framework import generics
 
@@ -99,8 +100,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserProfileSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.UpdateOwnProfile,)
-#    def perform_create(self, serializer):
-#                # Access validated_data here
-#                print(serializer.validated_data)
-#                # Perform custom logic before saving
-#                serializer.save()
+    # , here is intentionally added to allow python interpret it's intended to be a tuple and nmot a single item
+    filter_backends = (filters.SearchFilter,) 
+    search_fields = ('name', 'email',)
